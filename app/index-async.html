@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>异步加载库</title>
+	<!-- load.js script.js都可以帮我们异步的方式加载js文件 -->
+	<script src="lib/script.js/dist/script.js"></script>
+	<script src="lib/angular-loader/angular-loader.js"></script>
+	<script>
+		// $script('you want to load',function(){});
+
+		// console.log($+'---start');//报错
+		// $script('./lib/jquery/dist/jquery.js',function(){
+		// 	console.log($+'---in');//加载完jquery文件后才执行（需要一定时间）
+		// });
+		// console.log($+'---end');//报错
+
+		// $script([
+		// 	'./lib/angular/angular.js',
+		// 	'./lib/jquery/dist/jquery.js',
+		// 	'./app.js'//由于这个包比较小，加载完成过后直接执行，依赖的包暂未加载完成即会报错
+		// ],function(){
+		// 	console.log(angular);
+		// 	angular.bootstrap(document,['moviecat']);
+		// });
+
+		// $script('./lib/angular/angular.js',function(){
+		// 	$script('./lib/jquery/dist/jquery.js',function(){
+		// 		// ......;
+		// 	});
+		// });
+
+		//angular-loader的作用就算是在使用一些异步加载脚本的库的时候，自动控制依赖顺序
+		$script([
+			'./lib/angular/angular.js',
+			'./lib/angular-route/angular-route.js',
+			'./lib/jquery/dist/jquery.js',
+			'./components/auto-focus.js',
+			'./components/http.js',
+			'./movie_list/controller.js',
+			'./app.js'//由于这个包比较小，加载完成过后直接执行，依赖的包暂未加载完成即会报错
+		],function(){
+			console.log(angular);
+			angular.bootstrap(document,['moviecat']);
+		});
+	</script>
+</head>
+<body>
+
+</body>
+</html>
